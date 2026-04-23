@@ -5,16 +5,6 @@ import { getOwned, isFlagged } from '../data/userProgress'
 import './SetDetail.css'
 import './FilterView.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 // ── Konstanten ────────────────────────────────────────────────────────────────
 
@@ -36,7 +26,7 @@ function starLabel(set) {
 
 function formatSource(source) {
   if (!source) return null
-  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
   switch (source.type) {
     case 'dungeon': return <>{dng} {source.name}</>
     case 'all':     return <>{dng} All Dungeons</>
@@ -110,9 +100,9 @@ function SetTileA({ set, progress, onClick }) {
           {set.slots.map(slot => (
             <img
               key={slot}
-              src={`/icons/sets/${set.id}-${firstColor.toLowerCase()}-${slot.toLowerCase()}.webp`}
+              src={`/icons/sets/${set.id}-${firstColor.toLowerCase()}-${slot.toLowerCase()}.png`}
               alt={slot}
-              onError={imgFallback}
+              onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
             />
           ))}
         </div>
@@ -129,7 +119,7 @@ function SetTileA({ set, progress, onClick }) {
 function SlotTileB({ set, color, slot, progress, toggleOwned, flags, toggleFlagged }) {
   const owned   = getOwned(progress, set.id, color, slot)
   const flagged = isFlagged(flags ?? {}, set.id, color, slot)
-  const src = `/icons/sets/${set.id}-${color.toLowerCase()}-${slot.toLowerCase()}.webp`
+  const src = `/icons/sets/${set.id}-${color.toLowerCase()}-${slot.toLowerCase()}.png`
 
   return (
     <div className="sd-tile-wrap">
@@ -148,7 +138,7 @@ function SlotTileB({ set, color, slot, progress, toggleOwned, flags, toggleFlagg
           className="sd-tile__img"
           src={src}
           alt={`${color} ${slot}`}
-          onError={imgFallback}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
         />
         <span
           className="sd-tile__color"
@@ -161,7 +151,7 @@ function SlotTileB({ set, color, slot, progress, toggleOwned, flags, toggleFlagg
         aria-pressed={flagged}
         aria-label={flagged ? `Unflag ${slot}` : `Flag ${slot}`}
       >
-        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
       </button>
     </div>
   )
@@ -301,7 +291,7 @@ export default function FilterView({
       {/* ── Header ── */}
       <div className="filterview__header">
         <button className="filterview__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           Filter
         </button>
         <div className="filterview__header-right">
@@ -311,7 +301,7 @@ export default function FilterView({
             onClick={() => setOverlayOpen(true)}
             aria-label="Filter öffnen"
           >
-            <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={imgFallback} />
+            <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
             {hasActiveFilter && <span className="fv-filter-btn__dot" />}
           </button>
         </div>

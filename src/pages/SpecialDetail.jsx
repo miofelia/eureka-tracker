@@ -4,16 +4,6 @@ import { getOwned, isFlagged } from '../data/userProgress'
 import './SetDetail.css'
 import './ThreeStarDetail.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const COLOR_HEX = {
   Yellow: '#facc15', Green: '#4ade80', Red: '#f87171', Pink: '#f472b6',
@@ -22,8 +12,8 @@ const COLOR_HEX = {
 
 function formatSource(source) {
   if (!source) return ''
-  const limitedIcon = <img src="/icons/ui/limited.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
-  const questIcon   = <img src="/icons/ui/quest.png"   alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+  const limitedIcon = <img src="/icons/ui/limited.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+  const questIcon   = <img src="/icons/ui/quest.png"   alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
   switch (source.type) {
     case 'event': return <>{limitedIcon} Limited Event (Patch {source.patch})</>
     case 'quest': return <>{questIcon} {source.name}</>
@@ -32,7 +22,7 @@ function formatSource(source) {
 }
 
 function SlotTile({ setId, slot, color, owned, flagged, onToggle, onFlag }) {
-  const src = `/icons/sets/${setId}-${color.toLowerCase()}-${slot.toLowerCase()}.webp`
+  const src = `/icons/sets/${setId}-${color.toLowerCase()}-${slot.toLowerCase()}.png`
 
   return (
     <div className="sd-tile-wrap">
@@ -47,7 +37,7 @@ function SlotTile({ setId, slot, color, owned, flagged, onToggle, onFlag }) {
           className="sd-tile__img"
           src={src}
           alt={`${color} ${slot}`}
-          onError={imgFallback}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
         />
         <span
           className="sd-tile__color"
@@ -60,7 +50,7 @@ function SlotTile({ setId, slot, color, owned, flagged, onToggle, onFlag }) {
         aria-label={flagged ? `Unflag ${slot} ${color}` : `Flag ${slot} ${color}`}
         aria-pressed={flagged}
       >
-        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
       </button>
     </div>
   )
@@ -113,14 +103,14 @@ export default function SpecialDetail({ progress, toggleOwned, flags, toggleFlag
       <div className="tsd__header">
         <div className="tsd__header-row">
           <button className="tsd__back" onClick={() => navigate('/')}>
-            <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+            <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
             Special Eurekas
           </button>
           <span className="tsd__count">{ownedVariants} / {totalVariants} Variants</span>
         </div>
         <div className="tsd__meta">
           <span>
-            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
             {' '}{earnedDiamonds} / {totalDiamonds}
           </span>
         </div>

@@ -4,16 +4,6 @@ import { allSets } from '../data/eurekaSets'
 import { getOwned } from '../data/userProgress'
 import './NextUp.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const COLOR_HEX = {
   Yellow: '#facc15', Green: '#4ade80', Red: '#f87171', Pink: '#f472b6',
@@ -28,7 +18,7 @@ const SECTIONS = [
 
 function formatSource(source) {
   if (!source) return null
-  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
   switch (source.type) {
     case 'dungeon': return <>{dng} {source.name}</>
     case 'all':     return <>{dng} All Dungeons</>
@@ -84,7 +74,7 @@ function FlagCard({ flagKey, progress, toggleFlagged, toggleOwned, onDragStart }
           onClick={() => toggleFlagged(setId, color, slot)}
           aria-label={`Remove ${set.name} ${color} ${slot} from Next Up`}
         >
-          <img src="/icons/ui/flag.png" alt="remove" style={{ height: '16px', opacity: 0.6 }} onError={imgFallback} />
+          <img src="/icons/ui/flag.png" alt="remove" style={{ height: '16px', opacity: 0.6 }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
         </button>
       </div>
     </div>
@@ -104,7 +94,7 @@ function Section({ section, items, progress, flags, toggleFlagged, toggleOwned, 
           src={`${section.icon}.png`}
           alt={section.label}
           style={{ height: '20px', verticalAlign: 'middle' }}
-          onError={imgFallback}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
         />
         {' '}{section.label}
         <span className="nu-section__count">{items.length}</span>
@@ -161,7 +151,7 @@ export default function NextUp({ progress, flags, toggleFlagged, toggleOwned, se
     <div className="nextup">
       <div className="nextup__header">
         <button className="nextup__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           Next Up
         </button>
         <span className="nextup__count">{totalFlagged} flagged</span>
@@ -170,7 +160,7 @@ export default function NextUp({ progress, flags, toggleFlagged, toggleOwned, se
       {totalFlagged === 0 && (
         <p className="nextup__empty-state">
           Tap{' '}
-          <img src="/icons/ui/flag.png" alt="flag" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+          <img src="/icons/ui/flag.png" alt="flag" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           {' '}on any Eureka in SetDetail to add it here.
         </p>
       )}

@@ -3,16 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { getOwned } from '../data/userProgress'
 import './SetGrid.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const COLOR_MAP = {
   Yellow: '#facc15', Green: '#4ade80', Red: '#f87171', Pink: '#f472b6',
@@ -33,7 +23,7 @@ function SlotIcon({ setId, color, slot }) {
   }
   return (
     <img
-      src={`/icons/sets/${setId}-${color.toLowerCase()}-${slot.toLowerCase()}.webp`}
+      src={`/icons/sets/${setId}-${color.toLowerCase()}-${slot.toLowerCase()}.png`}
       alt={slot}
       onError={() => setFailed(true)}
     />
@@ -79,7 +69,7 @@ export default function SetGrid({ sets, title, basePath, progress }) {
     <div className="setgrid">
       <div className="setgrid__header">
         <button className="setgrid__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           {title}
         </button>
       </div>

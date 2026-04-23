@@ -3,16 +3,6 @@ import { allSets, fiveStarSets } from '../data/eurekaSets'
 import { getOwned } from '../data/userProgress'
 import './StatsView.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const C = 2 * Math.PI * 40   // Kreisumfang r=40 ≈ 251.33
 
@@ -206,7 +196,7 @@ export default function StatsView({ progress }) {
       {/* ── Header ── */}
       <div className="statsview__header">
         <button className="statsview__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           Statistics
         </button>
       </div>

@@ -3,19 +3,9 @@ import { fiveStarSets, fourStarSets, threeStarSets, specialSets, achievementDiam
 import { getOwned } from '../data/userProgress'
 import './HomeScreen.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const DiamondIcon = () => (
-  <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '16px', verticalAlign: 'middle' }} onError={imgFallback} />
+  <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '16px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
 )
 
 function countCompleteSets(sets, progress) {
@@ -55,7 +45,7 @@ function HomeTile({ label, total, owned, counter, to, disabled, icon }) {
           src={`${icon}.png`}
           alt=""
           className="home-tile__icon"
-          onError={imgFallback}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
         />
       )}
       {icon ? (
@@ -118,17 +108,17 @@ export default function HomeScreen({ progress, flags, achievementProgress, filte
     <div className="home">
       <div className="home__header">
         <button className="home__icon-btn" onClick={() => navigate('/stats')} aria-label="Statistics">
-          <img src="/icons/ui/statistic.png" alt="Statistics" style={{ height: '24px' }} onError={imgFallback} />
+          <img src="/icons/ui/statistic.png" alt="Statistics" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
         </button>
         <h1 className="home__title">
-          <img src="/icons/ui/logo.png" alt="Eureka Tracker" style={{ height: '156px' }} onError={imgFallback} />
+          <img src="/icons/ui/logo.png" alt="Eureka Tracker" style={{ height: '156px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
         </h1>
         <button
           className={`home__icon-btn ${activeFilterCount > 0 ? 'home__icon-btn--active' : ''}`}
           onClick={() => navigate('/filter')}
           aria-label="Filter"
         >
-          <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={imgFallback} />
+          <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           {activeFilterCount > 0 && <span className="home__filter-dot" />}
         </button>
       </div>

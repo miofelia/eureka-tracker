@@ -2,19 +2,9 @@ import { useNavigate } from 'react-router-dom'
 import { achievementDiamonds } from '../data/eurekaSets'
 import './Achievements.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const DiamondIcon = ({ size = 14 }) => (
-  <img src="/icons/ui/diamond.png" alt="💎" style={{ height: `${size}px`, verticalAlign: 'middle' }} onError={imgFallback} />
+  <img src="/icons/ui/diamond.png" alt="💎" style={{ height: `${size}px`, verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
 )
 
 function tierText(description, goal) {
@@ -83,7 +73,7 @@ export default function Achievements({ achievementProgress, toggleAchievementTie
     <div className="achievements">
       <div className="achievements__header">
         <button className="achievements__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           Achievements
         </button>
         <span className="achievements__diamonds">

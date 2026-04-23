@@ -3,16 +3,6 @@ import { allSets } from '../data/eurekaSets'
 import { getOwned, isFlagged } from '../data/userProgress'
 import './SetDetail.css'
 
-const imgFallback = e => {
-  const el = e.currentTarget
-  el.onerror = null
-  if (el.src.includes('.webp')) {
-    el.src = el.src.replace('.webp', '.png')
-    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
-  } else {
-    el.src = '/icons/ui/diamond.png'
-  }
-}
 
 const SLOT_ICON = { Head: 'head', Hands: 'hand', Feet: 'feet' }
 
@@ -23,7 +13,7 @@ const COLOR_HEX = {
 
 function formatSource(source) {
   if (!source) return ''
-  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
   switch (source.type) {
     case 'dungeon': return <>{dng} {source.name}</>
     case 'all':     return <>{dng} All Dungeons</>
@@ -40,7 +30,7 @@ function tileStyle(color, owned) {
 }
 
 function GridTile({ set, slot, color, owned, flagged, onToggle, onFlag }) {
-  const src = `/icons/sets/${set.id}-${color.toLowerCase()}-${slot.toLowerCase()}.webp`
+  const src = `/icons/sets/${set.id}-${color.toLowerCase()}-${slot.toLowerCase()}.png`
 
   return (
     <div className="sd-tile-wrap">
@@ -59,7 +49,7 @@ function GridTile({ set, slot, color, owned, flagged, onToggle, onFlag }) {
           className="sd-tile__img"
           src={src}
           alt={`${color} ${slot}`}
-          onError={imgFallback}
+          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
         />
         <span
           className="sd-tile__color"
@@ -73,7 +63,7 @@ function GridTile({ set, slot, color, owned, flagged, onToggle, onFlag }) {
         aria-label={flagged ? `Unflag ${slot} ${color}` : `Flag ${slot} ${color}`}
         aria-pressed={flagged}
       >
-        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
       </button>
     </div>
   )
@@ -89,7 +79,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
     return (
       <div className="setdetail">
         <button className="setdetail__back" onClick={() => navigate(-1)}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           Zurück
         </button>
         <p style={{ color: '#a78bfa' }}>Set nicht gefunden.</p>
@@ -111,7 +101,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
     <div className="setdetail">
       <div className="setdetail__header">
         <button className="setdetail__back" onClick={() => navigate(-1)}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
           {set.name}
         </button>
         <p className="setdetail__meta">
@@ -120,7 +110,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
         <div className="setdetail__stats">
           <span>{ownedVariants} / {totalVariants} Variants</span>
           <span>
-            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
             {' '}{earnedDiamonds} / {totalDiamonds}
           </span>
         </div>
@@ -133,7 +123,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
               src={`/icons/ui/${SLOT_ICON[slot]}.png`}
               alt={slot}
               style={{ height: '20px' }}
-              onError={imgFallback}
+              onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
             />
           </div>
         ))}
