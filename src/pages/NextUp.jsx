@@ -4,7 +4,6 @@ import { allSets } from '../data/eurekaSets'
 import { getOwned } from '../data/userProgress'
 import './NextUp.css'
 
-
 const COLOR_HEX = {
   Yellow: '#facc15', Green: '#4ade80', Red: '#f87171', Pink: '#f472b6',
   Blue: '#60a5fa', Purple: '#c084fc', White: '#f1f5f9', Iridescent: '#c084fc',
@@ -33,62 +32,80 @@ function parseKey(key) {
   return { setId: parts[0], color: parts[1], slot: parts[2] }
 }
 
-function FlagCard({ flagKey, progress, toggleFlagged, toggleOwned, onDragStart }) {
+function FlagCard({ flagKey, progress, toggleFlagged, toggleOwned, setFlagCategory, isSelected, onSelect, anySelected }) {
   const { setId, color, slot } = parseKey(flagKey)
   const set = allSets.find((s) => s.id === setId)
   if (!set) return null
 
   const source = formatSource(set.source)
 
+  function pickCategory(catId, e) {
+    e.stopPropagation()
+    setFlagCategory(setId, color, slot, catId)
+    onSelect(null)
+  }
+
   return (
-    <div
-      className="nu-card"
-      draggable
-      onDragStart={onDragStart}
-    >
-      <div className="nu-card__left">
-        <span
-          className="nu-card__dot"
-          style={{ backgroundColor: COLOR_HEX[color] ?? '#888' }}
-        />
-        <div className="nu-card__info">
-          <span className="nu-card__name">{set.name}</span>
-          <span className="nu-card__detail">
-            {color} · {slot}
-          </span>
-          {source && (
-            <span className="nu-card__source">{source}</span>
-          )}
+    <div className={`nu-card-wrap${anySelected && !isSelected ? ' nu-card-wrap--dimmed' : ''}`}>
+      <div
+        className={`nu-card${isSelected ? ' nu-card--selected' : ''}`}
+        onClick={(e) => { e.stopPropagation(); onSelect(isSelected ? null : flagKey) }}
+      >
+        <div className="nu-card__left">
+          <span
+            className="nu-card__dot"
+            style={{ backgroundColor: COLOR_HEX[color] ?? '#888' }}
+          />
+          <div className="nu-card__info">
+            <span className="nu-card__name">{set.name}</span>
+            <span className="nu-card__detail">{color} · {slot}</span>
+            {source && <span className="nu-card__source">{source}</span>}
+          </div>
+        </div>
+        <div className="nu-card__actions">
+          <button
+            className="nu-card__check"
+            onClick={(e) => { e.stopPropagation(); toggleOwned(setId, color, slot) }}
+            aria-label={`Mark ${set.name} ${color} ${slot} as owned`}
+          >
+            ✓
+          </button>
+          <button
+            className="nu-card__remove"
+            onClick={(e) => { e.stopPropagation(); toggleFlagged(setId, color, slot) }}
+            aria-label={`Remove ${set.name} ${color} ${slot} from Next Up`}
+          >
+            <img src="/icons/ui/flag.png" alt="remove" style={{ height: '16px', opacity: 0.6 }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+          </button>
         </div>
       </div>
-      <div className="nu-card__actions">
-        <button
-          className="nu-card__check"
-          onClick={() => toggleOwned(setId, color, slot)}
-          aria-label={`Mark ${set.name} ${color} ${slot} as owned`}
-        >
-          ✓
-        </button>
-        <button
-          className="nu-card__remove"
-          onClick={() => toggleFlagged(setId, color, slot)}
-          aria-label={`Remove ${set.name} ${color} ${slot} from Next Up`}
-        >
-          <img src="/icons/ui/flag.png" alt="remove" style={{ height: '16px', opacity: 0.6 }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
-        </button>
-      </div>
+
+      {isSelected && (
+        <div className="nu-picker" onClick={(e) => e.stopPropagation()}>
+          {SECTIONS.map((s) => (
+            <button
+              key={String(s.id)}
+              className="nu-picker__btn"
+              onClick={(e) => pickCategory(s.id, e)}
+            >
+              <img
+                src={`${s.icon}.png`}
+                alt=""
+                style={{ height: '14px' }}
+                onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
+              />
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
-function Section({ section, items, progress, flags, toggleFlagged, toggleOwned, setFlagCategory, dragOver, onDragOver, onDragLeave, onDrop }) {
+function Section({ section, items, progress, toggleFlagged, toggleOwned, setFlagCategory, selectedKey, setSelectedKey }) {
   return (
-    <div
-      className={`nu-section ${dragOver ? 'nu-section--drag-over' : ''}`}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-    >
+    <div className="nu-section">
       <h3 className="nu-section__title">
         <img
           src={`${section.icon}.png`}
@@ -101,7 +118,7 @@ function Section({ section, items, progress, flags, toggleFlagged, toggleOwned, 
       </h3>
 
       {items.length === 0 && (
-        <p className="nu-section__empty">Drop items here</p>
+        <p className="nu-section__empty">No items</p>
       )}
 
       <div className="nu-section__items">
@@ -112,7 +129,10 @@ function Section({ section, items, progress, flags, toggleFlagged, toggleOwned, 
             progress={progress}
             toggleFlagged={toggleFlagged}
             toggleOwned={toggleOwned}
-            onDragStart={(e) => e.dataTransfer.setData('text/plain', key)}
+            setFlagCategory={setFlagCategory}
+            isSelected={selectedKey === key}
+            onSelect={setSelectedKey}
+            anySelected={selectedKey !== null}
           />
         ))}
       </div>
@@ -122,7 +142,7 @@ function Section({ section, items, progress, flags, toggleFlagged, toggleOwned, 
 
 export default function NextUp({ progress, flags, toggleFlagged, toggleOwned, setFlagCategory }) {
   const navigate = useNavigate()
-  const [dragOver, setDragOver] = useState(null)
+  const [selectedKey, setSelectedKey] = useState(null)
 
   const activeFlagKeys = Object.keys(flags ?? {}).filter((key) => {
     const { setId, color, slot } = parseKey(key)
@@ -138,17 +158,8 @@ export default function NextUp({ progress, flags, toggleFlagged, toggleOwned, se
     })
   }
 
-  function handleDrop(e, sectionId) {
-    e.preventDefault()
-    setDragOver(null)
-    const key = e.dataTransfer.getData('text/plain')
-    if (!key) return
-    const { setId, color, slot } = parseKey(key)
-    setFlagCategory(setId, color, slot, sectionId)
-  }
-
   return (
-    <div className="nextup">
+    <div className="nextup" onClick={() => setSelectedKey(null)}>
       <div className="nextup__header">
         <button className="nextup__back" onClick={() => navigate('/')}>
           <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
@@ -172,14 +183,11 @@ export default function NextUp({ progress, flags, toggleFlagged, toggleOwned, se
             section={section}
             items={itemsForSection(section.id)}
             progress={progress}
-            flags={flags}
             toggleFlagged={toggleFlagged}
             toggleOwned={toggleOwned}
             setFlagCategory={setFlagCategory}
-            dragOver={dragOver === String(section.id)}
-            onDragOver={(e) => { e.preventDefault(); setDragOver(String(section.id)) }}
-            onDragLeave={() => setDragOver(null)}
-            onDrop={(e) => handleDrop(e, section.id)}
+            selectedKey={selectedKey}
+            setSelectedKey={setSelectedKey}
           />
         ))}
       </div>

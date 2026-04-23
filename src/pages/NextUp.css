@@ -59,13 +59,7 @@
   background: #2d2d44;
   border-radius: 12px;
   padding: 12px;
-  border: 2px solid transparent;
-  transition: border-color 0.15s;
   min-height: 80px;
-}
-
-.nu-section--drag-over {
-  border-color: #a78bfa;
 }
 
 .nu-section__title {
@@ -98,6 +92,15 @@
   gap: 6px;
 }
 
+/* ── Card-Wrapper ── */
+.nu-card-wrap {
+  transition: opacity 0.15s;
+}
+
+.nu-card-wrap--dimmed {
+  opacity: 0.38;
+}
+
 /* ── Item-Karte ── */
 .nu-card {
   background: #1a1a2e;
@@ -106,12 +109,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  cursor: grab;
+  cursor: pointer;
   user-select: none;
+  border: 2px solid transparent;
+  transition: border-color 0.15s;
 }
 
-.nu-card:active {
-  cursor: grabbing;
+.nu-card--selected {
+  border-color: #a78bfa;
 }
 
 .nu-card__left {
@@ -186,3 +191,35 @@
   transition: color 0.15s;
 }
 .nu-card__remove:hover { color: #9ca3af; }
+
+/* ── Kategorie-Picker ── */
+.nu-picker {
+  display: flex;
+  gap: 6px;
+  padding: 6px 2px 2px;
+}
+
+.nu-picker__btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  background: #252538;
+  border: 1px solid #4b5563;
+  border-radius: 20px;
+  color: #d1d5db;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 6px 8px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.nu-picker__btn:hover,
+.nu-picker__btn:active {
+  background: #3d3d5c;
+  border-color: #a78bfa;
+  color: #ffffff;
+}
