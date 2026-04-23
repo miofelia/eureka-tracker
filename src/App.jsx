@@ -103,7 +103,7 @@ function App() {
             src="/icons/ui/onboarding.webp"
             alt=""
             style={{ height: '120px', display: 'block', margin: '0 auto 16px' }}
-            onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/onboarding.png' }}
+            onError={e => { const el = e.currentTarget; el.onerror = null; el.src = '/icons/ui/onboarding.png'; el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' } }}
           />
           <p className="onboarding-card__title">Welcome to Eureka Tracker!</p>
           <p className="onboarding-card__text">

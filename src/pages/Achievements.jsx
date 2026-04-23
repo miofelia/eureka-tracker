@@ -2,7 +2,16 @@ import { useNavigate } from 'react-router-dom'
 import { achievementDiamonds } from '../data/eurekaSets'
 import './Achievements.css'
 
-const imgFallback = e => { e.currentTarget.onerror = null; e.currentTarget.src = e.currentTarget.src.replace('.webp', '.png') }
+const imgFallback = e => {
+  const el = e.currentTarget
+  el.onerror = null
+  if (el.src.includes('.webp')) {
+    el.src = el.src.replace('.webp', '.png')
+    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
+  } else {
+    el.src = '/icons/ui/diamond.png'
+  }
+}
 
 const DiamondIcon = ({ size = 14 }) => (
   <img src="/icons/ui/diamond.webp" alt="💎" style={{ height: `${size}px`, verticalAlign: 'middle' }} onError={imgFallback} />

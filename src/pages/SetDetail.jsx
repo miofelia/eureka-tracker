@@ -3,7 +3,16 @@ import { allSets } from '../data/eurekaSets'
 import { getOwned, isFlagged } from '../data/userProgress'
 import './SetDetail.css'
 
-const imgFallback = e => { e.currentTarget.onerror = null; e.currentTarget.src = e.currentTarget.src.replace('.webp', '.png') }
+const imgFallback = e => {
+  const el = e.currentTarget
+  el.onerror = null
+  if (el.src.includes('.webp')) {
+    el.src = el.src.replace('.webp', '.png')
+    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
+  } else {
+    el.src = '/icons/ui/diamond.png'
+  }
+}
 
 const SLOT_ICON = { Head: 'head', Hands: 'hand', Feet: 'feet' }
 

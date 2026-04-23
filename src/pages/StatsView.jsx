@@ -3,7 +3,16 @@ import { allSets, fiveStarSets } from '../data/eurekaSets'
 import { getOwned } from '../data/userProgress'
 import './StatsView.css'
 
-const imgFallback = e => { e.currentTarget.onerror = null; e.currentTarget.src = e.currentTarget.src.replace('.webp', '.png') }
+const imgFallback = e => {
+  const el = e.currentTarget
+  el.onerror = null
+  if (el.src.includes('.webp')) {
+    el.src = el.src.replace('.webp', '.png')
+    el.onerror = e2 => { e2.currentTarget.onerror = null; e2.currentTarget.src = '/icons/ui/diamond.png' }
+  } else {
+    el.src = '/icons/ui/diamond.png'
+  }
+}
 
 const C = 2 * Math.PI * 40   // Kreisumfang r=40 ≈ 251.33
 
