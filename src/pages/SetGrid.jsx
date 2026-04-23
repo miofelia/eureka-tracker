@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { getOwned } from '../data/userProgress'
 import './SetGrid.css'
@@ -11,6 +12,32 @@ const imgFallback = e => {
   } else {
     el.src = '/icons/ui/diamond.png'
   }
+}
+
+const COLOR_MAP = {
+  Yellow: '#facc15', Green: '#4ade80', Red: '#f87171', Pink: '#f472b6',
+  Blue: '#60a5fa', Purple: '#c084fc', White: '#f1f5f9', Iridescent: '#e879f9',
+}
+
+function SlotIcon({ setId, color, slot }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) {
+    return (
+      <div style={{
+        width: '32px', height: '32px',
+        borderRadius: '50%',
+        background: COLOR_MAP[color] ?? '#888',
+        flexShrink: 0,
+      }} />
+    )
+  }
+  return (
+    <img
+      src={`/icons/sets/${setId}-${color.toLowerCase()}-${slot.toLowerCase()}.webp`}
+      alt={slot}
+      onError={() => setFailed(true)}
+    />
+  )
 }
 
 function countOwnedVariants(set, progress) {
@@ -33,12 +60,7 @@ function SetTile({ set, progress, onClick }) {
     <button className={`set-tile ${done ? 'set-tile--done' : ''}`} onClick={onClick}>
       <div className="set-tile__icons">
         {set.slots.map((slot) => (
-          <img
-            key={slot}
-            src={`/icons/sets/${set.id}-${firstColor.toLowerCase()}-${slot.toLowerCase()}.webp`}
-            alt={slot}
-            onError={imgFallback}
-          />
+          <SlotIcon key={slot} setId={set.id} color={firstColor} slot={slot} />
         ))}
       </div>
       <span className="set-tile__name">{set.name}</span>
