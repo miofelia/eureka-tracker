@@ -206,7 +206,7 @@ export default function StatsView({ progress }) {
       {/* ── Header ── */}
       <div className="statsview__header">
         <button className="statsview__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
           Statistics
         </button>
       </div>

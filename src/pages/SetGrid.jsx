@@ -57,7 +57,7 @@ export default function SetGrid({ sets, title, basePath, progress }) {
     <div className="setgrid">
       <div className="setgrid__header">
         <button className="setgrid__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
           {title}
         </button>
       </div>

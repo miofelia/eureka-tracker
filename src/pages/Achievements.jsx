@@ -14,7 +14,7 @@ const imgFallback = e => {
 }
 
 const DiamondIcon = ({ size = 14 }) => (
-  <img src="/icons/ui/diamond.webp" alt="💎" style={{ height: `${size}px`, verticalAlign: 'middle' }} onError={imgFallback} />
+  <img src="/icons/ui/diamond.png" alt="💎" style={{ height: `${size}px`, verticalAlign: 'middle' }} onError={imgFallback} />
 )
 
 function tierText(description, goal) {
@@ -83,7 +83,7 @@ export default function Achievements({ achievementProgress, toggleAchievementTie
     <div className="achievements">
       <div className="achievements__header">
         <button className="achievements__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
           Achievements
         </button>
         <span className="achievements__diamonds">

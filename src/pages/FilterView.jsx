@@ -36,7 +36,7 @@ function starLabel(set) {
 
 function formatSource(source) {
   if (!source) return null
-  const dng = <img src="/icons/ui/dungeon.webp" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
   switch (source.type) {
     case 'dungeon': return <>{dng} {source.name}</>
     case 'all':     return <>{dng} All Dungeons</>
@@ -161,7 +161,7 @@ function SlotTileB({ set, color, slot, progress, toggleOwned, flags, toggleFlagg
         aria-pressed={flagged}
         aria-label={flagged ? `Unflag ${slot}` : `Flag ${slot}`}
       >
-        <img src="/icons/ui/flag.webp" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
       </button>
     </div>
   )
@@ -301,7 +301,7 @@ export default function FilterView({
       {/* ── Header ── */}
       <div className="filterview__header">
         <button className="filterview__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
           Filter
         </button>
         <div className="filterview__header-right">
@@ -311,7 +311,7 @@ export default function FilterView({
             onClick={() => setOverlayOpen(true)}
             aria-label="Filter öffnen"
           >
-            <img src="/icons/ui/filter.webp" alt="Filter" style={{ height: '24px' }} onError={imgFallback} />
+            <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={imgFallback} />
             {hasActiveFilter && <span className="fv-filter-btn__dot" />}
           </button>
         </div>

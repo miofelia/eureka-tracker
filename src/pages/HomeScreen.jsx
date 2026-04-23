@@ -15,7 +15,7 @@ const imgFallback = e => {
 }
 
 const DiamondIcon = () => (
-  <img src="/icons/ui/diamond.webp" alt="💎" style={{ height: '16px', verticalAlign: 'middle' }} onError={imgFallback} />
+  <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '16px', verticalAlign: 'middle' }} onError={imgFallback} />
 )
 
 function countCompleteSets(sets, progress) {
@@ -52,7 +52,7 @@ function HomeTile({ label, total, owned, counter, to, disabled, icon }) {
     >
       {icon && (
         <img
-          src={`${icon}.webp`}
+          src={`${icon}.png`}
           alt=""
           className="home-tile__icon"
           onError={imgFallback}
@@ -118,17 +118,17 @@ export default function HomeScreen({ progress, flags, achievementProgress, filte
     <div className="home">
       <div className="home__header">
         <button className="home__icon-btn" onClick={() => navigate('/stats')} aria-label="Statistics">
-          <img src="/icons/ui/statistic.webp" alt="Statistics" style={{ height: '24px' }} onError={imgFallback} />
+          <img src="/icons/ui/statistic.png" alt="Statistics" style={{ height: '24px' }} onError={imgFallback} />
         </button>
         <h1 className="home__title">
-          <img src="/icons/ui/logo.webp" alt="Eureka Tracker" style={{ height: '156px' }} onError={imgFallback} />
+          <img src="/icons/ui/logo.png" alt="Eureka Tracker" style={{ height: '156px' }} onError={imgFallback} />
         </h1>
         <button
           className={`home__icon-btn ${activeFilterCount > 0 ? 'home__icon-btn--active' : ''}`}
           onClick={() => navigate('/filter')}
           aria-label="Filter"
         >
-          <img src="/icons/ui/filter.webp" alt="Filter" style={{ height: '24px' }} onError={imgFallback} />
+          <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={imgFallback} />
           {activeFilterCount > 0 && <span className="home__filter-dot" />}
         </button>
       </div>

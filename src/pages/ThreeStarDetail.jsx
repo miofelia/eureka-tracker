@@ -49,7 +49,7 @@ function SlotTile({ setId, slot, color, owned, flagged, onToggle, onFlag }) {
         aria-label={flagged ? `Unflag ${slot} ${color}` : `Flag ${slot} ${color}`}
         aria-pressed={flagged}
       >
-        <img src="/icons/ui/flag.webp" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
       </button>
     </div>
   )
@@ -101,18 +101,18 @@ export default function ThreeStarDetail({ progress, toggleOwned, flags, toggleFl
       <div className="tsd__header">
         <div className="tsd__header-row">
           <button className="tsd__back" onClick={() => navigate('/')}>
-            <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+            <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
             3★ Eurekas
           </button>
           <span className="tsd__count">{ownedVariants} / {totalVariants} Variants</span>
         </div>
         <div className="tsd__meta">
           <span>
-            <img src="/icons/ui/dungeon.webp" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+            <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
             {' '}All Dungeons
           </span>
           <span>
-            <img src="/icons/ui/diamond.webp" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
             {' '}{earnedDiamonds} / {totalDiamonds}
           </span>
         </div>

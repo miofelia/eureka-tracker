@@ -23,7 +23,7 @@ const COLOR_HEX = {
 
 function formatSource(source) {
   if (!source) return ''
-  const dng = <img src="/icons/ui/dungeon.webp" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
   switch (source.type) {
     case 'dungeon': return <>{dng} {source.name}</>
     case 'all':     return <>{dng} All Dungeons</>
@@ -73,7 +73,7 @@ function GridTile({ set, slot, color, owned, flagged, onToggle, onFlag }) {
         aria-label={flagged ? `Unflag ${slot} ${color}` : `Flag ${slot} ${color}`}
         aria-pressed={flagged}
       >
-        <img src="/icons/ui/flag.webp" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={imgFallback} />
       </button>
     </div>
   )
@@ -89,7 +89,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
     return (
       <div className="setdetail">
         <button className="setdetail__back" onClick={() => navigate(-1)}>
-          <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
           Zurück
         </button>
         <p style={{ color: '#a78bfa' }}>Set nicht gefunden.</p>
@@ -111,7 +111,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
     <div className="setdetail">
       <div className="setdetail__header">
         <button className="setdetail__back" onClick={() => navigate(-1)}>
-          <img src="/icons/ui/back.webp" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={imgFallback} />
           {set.name}
         </button>
         <p className="setdetail__meta">
@@ -120,7 +120,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
         <div className="setdetail__stats">
           <span>{ownedVariants} / {totalVariants} Variants</span>
           <span>
-            <img src="/icons/ui/diamond.webp" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
+            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={imgFallback} />
             {' '}{earnedDiamonds} / {totalDiamonds}
           </span>
         </div>
@@ -130,7 +130,7 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
         {set.slots.map((slot) => (
           <div key={slot} className="sd-col-label">
             <img
-              src={`/icons/ui/${SLOT_ICON[slot]}.webp`}
+              src={`/icons/ui/${SLOT_ICON[slot]}.png`}
               alt={slot}
               style={{ height: '20px' }}
               onError={imgFallback}
