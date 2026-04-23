@@ -17,6 +17,9 @@ export default defineConfig({
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
         // /icons/-Pfade nicht als Navigate-Fallback behandeln → immer frisch laden
         navigateFallbackDenylist: [/\/icons\//],
+        // Neuer Service Worker übernimmt sofort ohne Browser-Neustart
+        skipWaiting: true,
+        clientsClaim: true,
       },
     }),
   ],
