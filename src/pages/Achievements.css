@@ -1,0 +1,157 @@
+.achievements {
+  padding: 12px 16px 48px;
+}
+
+/* ── Header ── */
+.achievements__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1a1a2e;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 20px;
+}
+
+.achievements__back {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.achievements__back:hover { color: #c4b5fd; }
+
+.achievements__diamonds {
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* ── Liste ── */
+.ach-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Achievement-Block ── */
+.ach-block {
+  background: #2d2d44;
+  border-radius: 12px;
+  padding: 14px 14px 10px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.ach-block--complete {
+  border-color: #a78bfa;
+}
+
+.ach-block__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.ach-block__name {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.ach-block__total {
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* ── Tier-Zeilen ── */
+.ach-block__tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ach-tier {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  background: #1a1a2e;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s;
+}
+.ach-tier:active { background: #232340; }
+
+.ach-tier--claimed {
+  opacity: 0.45;
+}
+
+.ach-tier__text {
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.ach-tier--claimed .ach-tier__text {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.ach-tier__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ach-tier__diamonds {
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Checkbox-Quadrat */
+.ach-tier__check {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 2px solid #4b5563;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #a78bfa;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.ach-tier--claimed .ach-tier__check {
+  border-color: #a78bfa;
+  background: #1e1b3a;
+}

@@ -1,0 +1,199 @@
+.home {
+  padding: 24px 16px;
+}
+
+/* ── Header mit Icon-Buttons ── */
+.home__header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.home__title {
+  flex: 1;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.home__icon-btn {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+
+.home__filter-dot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #a78bfa;
+  pointer-events: none;
+}
+.home__icon-btn:hover:not(:disabled) { color: #c4b5fd; }
+
+.home__icon-btn--disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.home__icon-btn--active {
+  color: #a78bfa;
+}
+
+/* ── Kacheln mit Icon (row-Layout) ── */
+.home-tile--with-icon {
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 12px;
+  padding: 12px;
+}
+
+.home-tile__icon {
+  width: 50%;
+  height: auto;
+  align-self: stretch;
+  object-fit: contain;
+  flex-shrink: 0;
+  max-width: 56px;
+}
+
+.home-tile--done .home-tile__icon {
+  filter: grayscale(1) opacity(0.4);
+}
+
+.home-tile__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  justify-content: center;
+}
+
+.home__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Kachel ── */
+.home-tile {
+  background: #2d2d44;
+  border: none;
+  border-radius: 12px;
+  padding: 20px 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.home-tile:hover:not(.home-tile--disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.home-tile:active:not(.home-tile--disabled) {
+  transform: translateY(0);
+}
+
+.home-tile__label {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.home-tile__progress {
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* ── Fertig (alles besessen) ── */
+.home-tile--done {
+  background: #252538;
+}
+
+.home-tile--done .home-tile__label {
+  color: #6b7280;
+}
+
+.home-tile--done .home-tile__progress {
+  color: #6b7280;
+}
+
+/* ── Noch nicht verfügbar ── */
+.home-tile--disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+/* ── Globaler Diamanten-Counter ── */
+.home__diamonds {
+  text-align: center;
+  color: #a78bfa;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+/* ── Disclaimer + Footer-Links ── */
+.home__disclaimer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  background: #1a1a2e;
+  padding: 6px 16px 10px;
+  z-index: 10;
+}
+
+.home__disclaimer__text {
+  font-size: 10px;
+  color: #4b5563;
+  line-height: 1.4;
+  pointer-events: none;
+  margin: 0 0 4px;
+}
+
+.home__footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.home__footer-btn {
+  background: none;
+  border: none;
+  color: #4b5563;
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  line-height: 1;
+}
+.home__footer-btn:hover { color: #9ca3af; }

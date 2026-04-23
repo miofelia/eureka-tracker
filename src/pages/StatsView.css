@@ -1,0 +1,213 @@
+.statsview {
+  padding: 12px 16px 48px;
+}
+
+/* ── Header ── */
+.statsview__header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1a1a2e;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 20px;
+}
+
+.statsview__back {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+.statsview__back:hover { color: #c4b5fd; }
+
+/* ── Iridescent-Sektion ── */
+.sv-iri {
+  background: #2d2d44;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+
+.sv-iri__label {
+  color: #e879f9;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.sv-iri__bar-wrap {
+  height: 8px;
+  background: #374151;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.sv-iri__bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #facc15, #4ade80, #60a5fa, #c084fc, #f472b6);
+  transition: width 0.4s ease;
+  min-width: 0;
+}
+
+.sv-iri__counter {
+  color: #a78bfa;
+  font-size: 12px;
+  text-align: center;
+  margin: 0;
+}
+
+.sv-iri__sep {
+  color: #4b5563;
+  padding: 0 2px;
+}
+
+/* ── Donuts-Karte ── */
+.sv-donuts-card {
+  background: #2d2d44;
+  border-radius: 12px;
+  padding: 14px 10px 12px;
+  margin-bottom: 12px;
+}
+
+.sv-donuts {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+/* ── Einzelner Donut ── */
+.sv-donut {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.sv-donut__title {
+  color: #9ca3af;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  text-align: center;
+  margin: 0;
+}
+
+.sv-donut__svg {
+  width: 88px;
+  height: 88px;
+}
+
+/* ── Legende ── */
+.sv-donut__legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sv-donut__leg-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sv-donut__leg-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.sv-donut__leg-name {
+  color: #9ca3af;
+  font-size: 9px;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sv-donut__leg-val {
+  color: #6b7280;
+  font-size: 9px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* ── Label-Sektion ── */
+.sv-labels {
+  background: #2d2d44;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.sv-labels__title {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.sv-labels__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Einzelne Label-Zeile ── */
+.sv-label-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sv-label-row__name {
+  color: #9ca3af;
+  font-size: 11px;
+  width: 84px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sv-label-row__bar {
+  flex: 1;
+  height: 4px;
+  background: #374151;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.sv-label-row__fill {
+  height: 100%;
+  background: #a78bfa;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.sv-label-row__val {
+  color: #6b7280;
+  font-size: 10px;
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}

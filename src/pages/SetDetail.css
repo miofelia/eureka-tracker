@@ -1,0 +1,152 @@
+.setdetail {
+  padding: 12px 16px 48px;
+}
+
+/* ── Header ── */
+.setdetail__header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1a1a2e;
+  padding-top: 8px;
+  padding-bottom: 6px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 10px;
+}
+
+.setdetail__back {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 2px;
+  display: block;
+  line-height: 1.3;
+}
+.setdetail__back:hover { color: #c4b5fd; }
+
+.setdetail__meta {
+  color: #9ca3af;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.setdetail__stats {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* ── Spalten-Header ── */
+.sd-grid--header {
+  margin-bottom: 6px;
+}
+
+.sd-col-label {
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── Haupt-Grid ── */
+.sd-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+/* ── Kachel-Wrapper (hält Tile + Flag-Icon) ── */
+.sd-tile-wrap {
+  position: relative;
+  aspect-ratio: 1;
+}
+
+/* ── Einzelne Kachel ── */
+.sd-tile {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: unset;
+  background: #2d2d44;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.sd-tile:active {
+  transform: scale(0.93);
+}
+
+/* Iridescent: Regenbogen-Border (border-image entfernt border-radius) */
+.sd-tile--iridescent {
+  border-image: linear-gradient(135deg, #f5c518, #4ade80, #60a5fa, #c084fc, #f472b6) 1;
+}
+
+/* Besessen: grauer Border, dunklerer Hintergrund */
+.sd-tile--owned {
+  border-color: #374151;
+  background: #252538;
+}
+
+.sd-tile__img {
+  width: 85%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Besessen: Icon ausgegraut */
+.sd-tile--owned .sd-tile__img {
+  filter: grayscale(1) opacity(0.5);
+}
+
+.sd-tile__color {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* ── Flag-Icon ── */
+.sd-tile__flag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 4px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  filter: grayscale(1);
+  opacity: 0.3;
+  transition: opacity 0.15s, filter 0.15s;
+  z-index: 1;
+}
+
+/* Geflaggt → lila */
+.sd-tile__flag--active {
+  filter: sepia(1) saturate(4) hue-rotate(210deg);
+  opacity: 1;
+}

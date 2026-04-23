@@ -1,0 +1,117 @@
+.tsd {
+  padding: 12px 16px 48px;
+}
+
+/* ── Header ── */
+.tsd__header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #1a1a2e;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 16px;
+}
+
+.tsd__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+/* Titel-Button darf nicht die volle Breite einnehmen */
+.tsd__back {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* Zähler bleibt auf der rechten Seite */
+.tsd__count {
+  flex-shrink: 0;
+}
+
+.tsd__meta {
+  display: flex;
+  gap: 14px;
+  color: #a78bfa;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.tsd__back {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1.3;
+}
+.tsd__back:hover { color: #c4b5fd; }
+
+.tsd__count {
+  color: #a78bfa;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ── Set-Blöcke ── */
+.tsd__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tsd-block {
+  background: #2d2d44;
+  border-radius: 12px;
+  padding: 12px 12px 14px;
+}
+
+.tsd-block__name {
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Style · Label unter dem Set-Namen */
+.tsd-block__style {
+  color: #9ca3af;
+  font-size: 11px;
+  margin-top: -4px;
+  margin-bottom: 8px;
+}
+
+/* Source-Info pro Block (genutzt von SpecialDetail) */
+.tsd-block__source {
+  color: #9ca3af;
+  font-size: 11px;
+  margin-top: -4px;
+  margin-bottom: 10px;
+}
+
+/* Wenn style UND source beide da sind, kein doppelter Abstand */
+.tsd-block__style + .tsd-block__source {
+  margin-top: -4px;
+  margin-bottom: 10px;
+}
+
+/* Fertig → dunklerer Hintergrund, Name/Style/Source ausgegraut */
+.tsd-block--done {
+  background: #252538;
+}
+.tsd-block--done .tsd-block__name,
+.tsd-block--done .tsd-block__style,
+.tsd-block--done .tsd-block__source {
+  color: #6b7280;
+}
