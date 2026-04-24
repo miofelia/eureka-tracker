@@ -26,16 +26,17 @@ function starLabel(set) {
 
 function formatSource(source) {
   if (!source) return null
-  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+  const dng = <img src="/icons/ui/dungeon.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.style.display = 'none' }} />
+  const lmt = <img src="/icons/ui/limited.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.style.display = 'none' }} />
+  const qst = <img src="/icons/ui/quest.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.style.display = 'none' }} />
   switch (source.type) {
     case 'dungeon': return <>{dng} {source.name}</>
     case 'all':     return <>{dng} All Dungeons</>
-    case 'quest':   return `📜 ${source.name}`
-    case 'event':   return `⭐ Limited Event (Patch ${source.patch})`
+    case 'quest':   return <>{qst} {source.name}</>
+    case 'event':   return <>{lmt} Limited Event (Patch {source.patch})</>
     default:        return null
   }
 }
-
 function setPath(set) {
   if (set.special)     return '/sets/special'
   if (set.stars === 3) return '/sets/3'
@@ -102,7 +103,7 @@ function SetTileA({ set, progress, onClick }) {
               key={slot}
               src={`/icons/sets/${set.id}-${firstColor.toLowerCase()}-${slot.toLowerCase()}.png`}
               alt={slot}
-              onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
+              onError={e => { e.currentTarget.style.display = 'none' }}
             />
           ))}
         </div>
@@ -138,7 +139,7 @@ function SlotTileB({ set, color, slot, progress, toggleOwned, flags, toggleFlagg
           className="sd-tile__img"
           src={src}
           alt={`${color} ${slot}`}
-          onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
+          onError={e => { e.currentTarget.style.display = 'none' }}
         />
         <span
           className="sd-tile__color"
@@ -151,7 +152,7 @@ function SlotTileB({ set, color, slot, progress, toggleOwned, flags, toggleFlagg
         aria-pressed={flagged}
         aria-label={flagged ? `Unflag ${slot}` : `Flag ${slot}`}
       >
-        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+        <img src="/icons/ui/flag.png" alt="flag" style={{ height: '26px' }} onError={e => { e.currentTarget.style.display = 'none' }} />
       </button>
     </div>
   )
@@ -291,7 +292,7 @@ export default function FilterView({
       {/* ── Header ── */}
       <div className="filterview__header">
         <button className="filterview__back" onClick={() => navigate('/')}>
-          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+          <img src="/icons/ui/back.png" alt="←" style={{ height: '20px', verticalAlign: 'middle', marginRight: '6px' }} onError={e => { e.currentTarget.style.display = 'none' }} />
           Filter
         </button>
         <div className="filterview__header-right">
@@ -299,9 +300,9 @@ export default function FilterView({
           <button
             className={`fv-filter-btn ${hasActiveFilter ? 'fv-filter-btn--active' : ''}`}
             onClick={() => setOverlayOpen(true)}
-            aria-label="Filter öffnen"
+            aria-label="open filter"
           >
-            <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+            <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={e => { e.currentTarget.style.display = 'none' }} />
             {hasActiveFilter && <span className="fv-filter-btn__dot" />}
           </button>
         </div>
@@ -310,7 +311,7 @@ export default function FilterView({
       {/* ── Ergebnisse ── */}
       {!isItemMode && (
         filteredSets.length === 0
-          ? <p className="fv-empty">Keine Sets gefunden.</p>
+          ? <p className="fv-empty">No set found.</p>
           : <div className="fv-set-grid">
               {filteredSets.map(set => (
                 <SetTileA
@@ -323,7 +324,7 @@ export default function FilterView({
 
       {isItemMode && (
         groupedB.length === 0
-          ? <p className="fv-empty">Keine Einträge gefunden.</p>
+          ? <p className="fv-empty">No entry found.</p>
           : <div className="fv-block-list">
               {groupedB.map(({ set, colors }) => (
                 <SetBlockB
@@ -349,13 +350,13 @@ export default function FilterView({
 
         <div className="fv-sheet__titlerow">
           <span className="fv-sheet__title">
-            Filter{activeFilterCount > 0 ? ` · ${activeFilterCount} aktiv` : ''}
+            Filter{activeFilterCount > 0 ? ` · ${activeFilterCount} active` : ''}
           </span>
-          <button className="fv-sheet__close" onClick={() => setOverlayOpen(false)} aria-label="Schließen">✕</button>
+          <button className="fv-sheet__close" onClick={() => setOverlayOpen(false)} aria-label="close">✕</button>
         </div>
 
         <div className="fv-section">
-          <p className="fv-section__label">Sterne</p>
+          <p className="fv-section__label">Stars</p>
           <div className="fv-chips">
             {[['5','5★'],['4','4★'],['3','3★'],['special','Special']].map(([val, lbl]) => (
               <Chip key={val} label={lbl}
@@ -407,15 +408,15 @@ export default function FilterView({
         <div className="fv-section">
           <p className="fv-section__label">Status</p>
           <div className="fv-radios">
-            <RadioOption label="Alle"       value="all"      current={filterState.status} onSelect={setStatus} />
-            <RadioOption label="Fehlend"    value="missing"  current={filterState.status} onSelect={setStatus} />
-            <RadioOption label="Vollständig" value="complete" current={filterState.status} onSelect={setStatus} />
-            <RadioOption label="Fast fertig" value="almost"  current={filterState.status} onSelect={setStatus} />
+            <RadioOption label="All"       value="all"      current={filterState.status} onSelect={setStatus} />
+            <RadioOption label="Missing"    value="missing"  current={filterState.status} onSelect={setStatus} />
+            <RadioOption label="Complete" value="complete" current={filterState.status} onSelect={setStatus} />
+            <RadioOption label="Almost complete" value="almost"  current={filterState.status} onSelect={setStatus} />
           </div>
         </div>
 
         <button className="fv-reset" onClick={resetFilters} disabled={!hasActiveFilter}>
-          Filter zurücksetzen
+          Reset Filter
         </button>
       </div>
 
