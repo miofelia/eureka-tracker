@@ -109,14 +109,17 @@ export default function SetDetail({ progress, toggleOwned, flags, toggleFlagged 
         <p className="setdetail__meta">
           {set.style.join(' · ')} · {set.label} · {formatSource(set.source)}
         </p>
-        <div className="setdetail__stats">
-          <span>{ownedVariants} / {totalVariants} Variants</span>
-          <span>
-            <img src="/icons/ui/diamond.png" alt="💎" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.style.display = 'none' }} />
-            {' '}{earnedDiamonds} / {totalDiamonds}
-          </span>
-        </div>
-      </div>
+<div className="setdetail__stats">
+  <span>
+    <img src="/icons/ui/variants.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.style.display = 'none' }} />
+    {' '}{ownedVariants} / {totalVariants} Variants
+  </span>
+  <span>
+    <img src="/icons/ui/diamond.png" alt="" style={{ height: '14px', verticalAlign: 'middle' }} onError={e => { e.currentTarget.style.display = 'none' }} />
+    {' '}{earnedDiamonds} / {totalDiamonds}
+  </span>
+</div>
+</div>
 
       <div className="sd-grid sd-grid--header">
         {set.slots.map((slot) => (

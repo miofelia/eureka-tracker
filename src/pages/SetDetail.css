@@ -41,12 +41,13 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  flex-wrap: wrap;
   color: #a78bfa;
   font-size: 11px;
   font-weight: 500;
 }
 
-/* ── Spalten-Header ── */
+/* ── Grid header ── */
 .sd-grid--header {
   margin-bottom: 6px;
 }
@@ -60,26 +61,28 @@
   letter-spacing: 0.4px;
 }
 
-/* ── Haupt-Grid ── */
+/* ── Main-Grid ── */
 .sd-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
 }
 
-/* ── Kachel-Wrapper (hält Tile + Flag-Icon) ── */
+/* ── Tile-Wrapper (contains Tile + Flag-Icon) ── */
 .sd-tile-wrap {
   position: relative;
   aspect-ratio: 1;
+  isolation: isolate;
+  z-index: 0;
 }
 
-/* ── Einzelne Kachel ── */
+/* ── Single Tile ── */
 .sd-tile {
   width: 100%;
   height: 100%;
   aspect-ratio: unset;
   background: #2d2d44;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -94,12 +97,22 @@
   transform: scale(0.93);
 }
 
-/* Iridescent: Regenbogen-Border (border-image entfernt border-radius) */
+/* Iridescent: Rainbow-Border (border-image delete border-radius) */
 .sd-tile--iridescent {
-  border-image: linear-gradient(135deg, #f5c518, #4ade80, #60a5fa, #c084fc, #f472b6) 1;
+  border: none;
+  position: relative;
 }
 
-/* Besessen: grauer Border, dunklerer Hintergrund */
+.sd-tile--iridescent::before {
+  content: '';
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 10px; /* a little bit bigger than the tile */
+  background: linear-gradient(135deg, #f5c518, #4ade80, #60a5fa, #c084fc, #f472b6);
+  z-index: -1;
+}
+
+/* Owned: grey Border, dark background */
 .sd-tile--owned {
   border-color: #374151;
   background: #252538;
@@ -111,7 +124,7 @@
   object-fit: contain;
 }
 
-/* Besessen: Icon ausgegraut */
+/* Owned: Icon greyed out */
 .sd-tile--owned .sd-tile__img {
   filter: grayscale(1) opacity(0.5);
 }
@@ -145,7 +158,7 @@
   z-index: 1;
 }
 
-/* Geflaggt → lila */
+/* when flagged → lila */
 .sd-tile__flag--active {
   filter: sepia(1) saturate(4) hue-rotate(210deg);
   opacity: 1;
