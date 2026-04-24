@@ -133,6 +133,14 @@
   flex-shrink: 0;
 }
 
+.nu-card__icon {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
 .nu-card__info {
   display: flex;
   flex-direction: column;
@@ -162,35 +170,48 @@
 .nu-card__actions {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
 .nu-card__check {
-  background: none;
-  border: none;
-  color: #4b5563;
-  font-size: 16px;
+  background: transparent;
+  border: 1.5px solid rgba(167, 139, 250, 0.4);
+  color: #a78bfa;
+  font-size: 20px;
+  font-weight: 700;
   line-height: 1;
   cursor: pointer;
-  padding: 4px 6px;
+  padding: 0;
   flex-shrink: 0;
-  transition: color 0.15s;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
 }
-.nu-card__check:hover { color: #4ade80; }
+.nu-card__check:hover { background: rgba(167, 139, 250, 0.15); }
 
 .nu-card__remove {
-  background: none;
-  border: none;
-  color: #4b5563;
-  font-size: 18px;
+  background: transparent;
+  border: 1.5px solid rgba(167, 139, 250, 0.4);
+  border-radius: 8px;
   line-height: 1;
   cursor: pointer;
-  padding: 4px 4px 4px 2px;
+  padding: 0;
   flex-shrink: 0;
-  transition: color 0.15s;
+  min-width: 32px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
 }
-.nu-card__remove:hover { color: #9ca3af; }
+.nu-card__remove:hover { background: rgba(167, 139, 250, 0.15); }
 
 /* ── Kategorie-Picker ── */
 .nu-picker {

@@ -9,6 +9,8 @@ const COLOR_HEX = {
   Blue: '#60a5fa', Purple: '#c084fc', White: '#f1f5f9', Iridescent: '#c084fc',
 }
 
+const SLOT_FILE = { Head: 'head', Hands: 'hand', Feet: 'feet' }
+
 const SECTIONS = [
   { id: null,    label: 'Unsorted', icon: '/icons/ui/unsorted' },
   { id: 'farm',  label: 'Farm',     icon: '/icons/ui/farm'     },
@@ -54,9 +56,26 @@ function FlagCard({ flagKey, progress, toggleFlagged, toggleOwned, setFlagCatego
         onClick={(e) => { e.stopPropagation(); onSelect(isSelected ? null : flagKey) }}
       >
         <div className="nu-card__left">
-          <span
-            className="nu-card__dot"
-            style={{ backgroundColor: COLOR_HEX[color] ?? '#888' }}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
+            <img
+              src={`/icons/ui/${SLOT_FILE[slot]}.png`}
+              alt=""
+              style={{ width: '18px', height: '18px', objectFit: 'contain' }}
+              onError={e => { e.currentTarget.style.display = 'none' }}
+            />
+            <span
+              className="nu-card__dot"
+              style={color === 'Iridescent'
+                ? { background: 'conic-gradient(#f472b6, #60a5fa, #4ade80, #facc15, #f472b6)' }
+                : { backgroundColor: COLOR_HEX[color] ?? '#888' }
+              }
+            />
+          </div>
+          <img
+            className="nu-card__icon"
+            src={`/icons/sets/${setId}-${color.toLowerCase()}-${slot.toLowerCase()}.png`}
+            alt=""
+            onError={e => { e.currentTarget.style.display = 'none' }}
           />
           <div className="nu-card__info">
             <span className="nu-card__name">{set.name}</span>
@@ -77,7 +96,7 @@ function FlagCard({ flagKey, progress, toggleFlagged, toggleOwned, setFlagCatego
             onClick={(e) => { e.stopPropagation(); toggleFlagged(setId, color, slot) }}
             aria-label={`Remove ${set.name} ${color} ${slot} from Next Up`}
           >
-            <img src="/icons/ui/flag.png" alt="remove" style={{ height: '16px', opacity: 0.6 }} onError={e => { e.currentTarget.style.display = 'none' }} />
+            <img src="/icons/ui/flag.png" alt="remove" style={{ height: '40px' }} onError={e => { e.currentTarget.style.display = 'none' }} />
           </button>
         </div>
       </div>
