@@ -1,3 +1,4 @@
+// import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { specialSets } from '../data/eurekaSets'
 import { getOwned, isFlagged } from '../data/userProgress'
@@ -9,6 +10,22 @@ const COLOR_HEX = {
   Yellow: '#facc15', Green: '#4ade80', Red: '#f87171', Pink: '#f472b6',
   Blue: '#60a5fa', Purple: '#c084fc', White: '#f1f5f9',
 }
+
+/* ── Long-press helper ────────────────────────────────────────────────────────
+function makeLongPress(callback, ms = 350) {
+  let timer = null
+  let fired = false
+  return {
+    onMouseDown:  () => { fired = false; timer = setTimeout(() => { fired = true; callback() }, ms) },
+    onTouchStart: () => { fired = false; timer = setTimeout(() => { fired = true; callback() }, ms) },
+    onTouchMove:  () => clearTimeout(timer),
+    onMouseUp:    () => clearTimeout(timer),
+    onMouseLeave: () => clearTimeout(timer),
+    onTouchEnd:   () => clearTimeout(timer),
+    onClick:      (e) => { if (fired) { fired = false; e.stopPropagation() } },
+  }
+}
+*/
 
 function formatSource(source) {
   if (!source) return ''
@@ -37,7 +54,9 @@ function SlotTile({ setId, slot, color, owned, flagged, onToggle, onFlag }) {
           className="sd-tile__img"
           src={src}
           alt={`${color} ${slot}`}
+          draggable={false}
           onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }}
+          onContextMenu={e => e.preventDefault()}
         />
         <span
           className="sd-tile__color"
@@ -61,9 +80,23 @@ function SetBlock({ set, progress, toggleOwned, flags, toggleFlagged }) {
   const ownedCount = set.slots.filter((slot) => getOwned(progress, set.id, color, slot)).length
   const done = ownedCount === set.slots.length
 
+  /* function handleBlockLongPress() {
+    const allOwned = set.slots.every(slot => getOwned(progress, set.id, color, slot))
+    const target = !allOwned
+    set.slots.forEach(slot => {
+      if (getOwned(progress, set.id, color, slot) !== target) {
+        toggleOwned(set.id, color, slot)
+      }
+    })
+  } */
+
   return (
     <div className={`tsd-block ${done ? 'tsd-block--done' : ''}`}>
-      <h3 className="tsd-block__name">{set.name}</h3>
+      <h3
+        className="tsd-block__name"
+        // {...makeLongPress(handleBlockLongPress)}
+        // onContextMenu={e => e.preventDefault()}
+      >{set.name}</h3>
       <p className="tsd-block__style">{set.style.join(' · ')} · {set.label}</p>
       <p className="tsd-block__source">{formatSource(set.source)}</p>
       <div className="sd-grid">
@@ -86,6 +119,7 @@ function SetBlock({ set, progress, toggleOwned, flags, toggleFlagged }) {
 
 export default function SpecialDetail({ progress, toggleOwned, flags, toggleFlagged }) {
   const navigate = useNavigate()
+  // const [showHelp, setShowHelp] = useState(false)
 
   const totalVariants = specialSets.reduce((sum, set) => sum + set.colors.length * set.slots.length, 0)
   const ownedVariants = specialSets.reduce((sum, set) =>
@@ -107,6 +141,9 @@ export default function SpecialDetail({ progress, toggleOwned, flags, toggleFlag
             Special Eurekas
           </button>
           <span className="tsd__count">{ownedVariants} / {totalVariants} Variants</span>
+          {/* <button className="tsd__help" onClick={() => setShowHelp(true)} aria-label="Help">
+            <img src="/icons/ui/help.png" alt="?" style={{ height: '20px' }} onError={e => { e.currentTarget.style.display = 'none' }} />
+          </button> */}
         </div>
         <div className="tsd__meta">
           <span>
@@ -128,6 +165,25 @@ export default function SpecialDetail({ progress, toggleOwned, flags, toggleFlag
           />
         ))}
       </div>
+
+      {/* ── Help overlay ── (commented out)
+      {showHelp && (
+        <div className="sd-help-overlay" onClick={() => setShowHelp(false)}>
+          <div className="sd-help-card" onClick={e => e.stopPropagation()}>
+            <div className="sd-help-header">
+              <span className="sd-help-title">Tips</span>
+              <button className="sd-help-close" onClick={() => setShowHelp(false)}>✕</button>
+            </div>
+            <ul className="sd-help-list">
+              <li><strong>Long press</strong> a set name → mark all pieces of that set complete</li>
+              <li><strong>Tap</strong> any tile → toggle single item</li>
+              <li>Tap the <strong>flag icon</strong> → add to Next Up</li>
+              <li style={{ color: '#9ca3af', fontStyle: 'italic' }}>Long press to mark all is an experimental feature and may behave inconsistently on some devices.</li>
+            </ul>
+          </div>
+        </div>
+      )}
+      */}
     </div>
   )
 }
