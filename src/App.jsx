@@ -13,6 +13,7 @@ import Achievements from './pages/Achievements'
 import FilterView from './pages/FilterView'
 import StatsView from './pages/StatsView'
 import LegalNotice from './pages/LegalNotice'
+import SettingsView from './pages/SettingsView'
 
 function App() {
   const {
@@ -81,8 +82,9 @@ function App() {
         />
       } />
 
-      <Route path="/stats"  element={<StatsView progress={progress} />} />
-      <Route path="/legal" element={<LegalNotice />} />
+      <Route path="/stats"    element={<StatsView progress={progress} />} />
+      <Route path="/legal"    element={<LegalNotice />} />
+      <Route path="/settings" element={<SettingsView />} />
 
       <Route path="/filter" element={
         <FilterView

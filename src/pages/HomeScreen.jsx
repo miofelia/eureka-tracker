@@ -113,14 +113,23 @@ export default function HomeScreen({ progress, flags, achievementProgress, filte
         <h1 className="home__title">
           <img src="/icons/ui/logo.png" alt="Eureka Tracker" style={{ height: '156px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
         </h1>
-        <button
-          className={`home__icon-btn ${activeFilterCount > 0 ? 'home__icon-btn--active' : ''}`}
-          onClick={() => navigate('/filter')}
-          aria-label="Filter"
-        >
-          <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
-          {activeFilterCount > 0 && <span className="home__filter-dot" />}
-        </button>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+          <button
+            className={`home__icon-btn ${activeFilterCount > 0 ? 'home__icon-btn--active' : ''}`}
+            onClick={() => navigate('/filter')}
+            aria-label="Filter"
+          >
+            <img src="/icons/ui/filter.png" alt="Filter" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.src = '/icons/ui/diamond.png' }} />
+            {activeFilterCount > 0 && <span className="home__filter-dot" />}
+          </button>
+          <button
+            className="home__icon-btn"
+            onClick={() => navigate('/settings')}
+            aria-label="Settings"
+          >
+            <img src="/icons/ui/settings.png" alt="Settings" style={{ height: '24px' }} onError={e => { e.currentTarget.onerror = null; e.currentTarget.style.display = 'none' }} />
+          </button>
+        </div>
       </div>
 
       <div className="home__grid">

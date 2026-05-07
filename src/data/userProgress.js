@@ -6,6 +6,8 @@ const store = localforage.createInstance({
   storeName: "progress",
 })
 
+export { store }
+
 const PROGRESS_KEY = "userProgress"
 const FLAGS_KEY    = "userFlags"
 

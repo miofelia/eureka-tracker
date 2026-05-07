@@ -70,6 +70,7 @@ export const fiveStarSets = [
     maxLevel: 10,
     slots: ["Head", "Hands", "Feet"],
   },
+  // Mothershroom's Dream Trial 
   {
     id: "icy-edge",
     name: "Icy Edge",
@@ -78,12 +79,12 @@ export const fiveStarSets = [
     style: ["Cool"],
     label: "Aesthetic",
     colors: ["Blue", "Yellow", "Purple", "Green", "Iridescent"],
-    source: { type: "dungeon", name: "Shiny Vault Trial" },
+    source: { type: "dungeon", name: "Mothershroom's Dream Trial" },
     diamondsPerColorSet: 30,
     maxLevel: 10,
     slots: ["Head", "Hands", "Feet"],
   },
-  // Mothershroom's Dream Trial
+  // Shiny Vault Trial
   {
     id: "lunar-astrolabe",
     name: "Lunar Astrolabe",
@@ -92,11 +93,12 @@ export const fiveStarSets = [
     style: ["Sexy"],
     label: "Spirited",
     colors: ["Purple", "Green", "Blue", "Red", "Iridescent"],
-    source: { type: "dungeon", name: "Mothershroom's Dream Trial" },
+    source: { type: "dungeon", name: "Shiny Vault Trial" },
     diamondsPerColorSet: 30,
     maxLevel: 10,
     slots: ["Head", "Hands", "Feet"],
-  },  
+  }, 
+  // Mothershroom's Dream Trial 
 {
     id: "shroomling-lullaby",
     name: "Shroomling Lullaby",
