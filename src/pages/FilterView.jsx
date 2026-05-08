@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { allSets } from '../data/eurekaSets'
+import { allSets, DUNGEON_ORDER, DUNGEON_IDS } from '../data/eurekaSets'
 import { getOwned, isFlagged } from '../data/userProgress'
 import './SetDetail.css'
 import './FilterView.css'
@@ -226,7 +226,19 @@ export default function FilterView({
   const allLabels   = [...new Set(allSets.map(s => s.label))].sort()
   const allDungeons = [...new Set(
     allSets.filter(s => s.source?.type === 'dungeon').map(s => s.source.name)
-  )].sort()
+  )].sort((a, b) => {
+    const idA = DUNGEON_IDS[a]
+    const idB = DUNGEON_IDS[b]
+    if (!idA || !idB) return a.localeCompare(b)
+    const lastA = idA.lastIndexOf('-')
+    const lastB = idB.lastIndexOf('-')
+    const prefixA = idA.slice(0, lastA)
+    const prefixB = idB.slice(0, lastB)
+    const orderA = DUNGEON_ORDER.indexOf(prefixA)
+    const orderB = DUNGEON_ORDER.indexOf(prefixB)
+    if (orderA !== orderB) return orderA - orderB
+    return parseInt(idA.slice(lastA + 1)) - parseInt(idB.slice(lastB + 1))
+  })
 
   const hasActiveFilter =
     filterState.stars.length > 0 || filterState.style.length > 0 ||
