@@ -95,3 +95,13 @@
   color: #a78bfa;
   background: #1e1b3a;
 }
+
+@media (max-width: 600px) {
+  .setgrid__header {
+    flex-wrap: wrap;
+  }
+  .sg-sort {
+    width: 100%;
+    justify-content: center;
+  }
+}

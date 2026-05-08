@@ -21,6 +21,29 @@
   margin-bottom: 16px;
 }
 
+.fv-sort {
+  display: flex;
+  gap: 8px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+@media (max-width: 600px) {
+  .filterview__header {
+    flex-wrap: wrap;
+  }
+  .fv-sort {
+    position: static;
+    width: 100%;
+    padding-top: 6px;
+    transform: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
 .filterview__back {
   background: none;
   border: none;

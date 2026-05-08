@@ -13,12 +13,12 @@ const COLOR_HEX = {
   Blue: '#60a5fa', Purple: '#c084fc', White: '#f1f5f9', Iridescent: null,
 }
 
-function firstColorStyle(set) {
+/*function firstColorStyle(set) {
   const c = set.colors[0]
   if (c === 'Iridescent')
     return { background: 'conic-gradient(#f472b6, #60a5fa, #4ade80, #facc15, #f472b6)' }
   return { backgroundColor: COLOR_HEX[c] ?? '#888' }
-}
+}*/ //reserved for potential future use - not needed in SetTileA - Farbpunkt im Listing
 
 function starLabel(set) {
   return set.special ? 'Special' : `${set.stars}★`
@@ -221,6 +221,8 @@ export default function FilterView({
 }) {
   const navigate = useNavigate()
   const [overlayOpen, setOverlayOpen] = useState(false)
+  const [sortMode, setSortMode] = useState('ingame')
+  const [azDir, setAzDir]       = useState('asc')
 
   const allStyles   = [...new Set(allSets.flatMap(s => s.style))].sort()
   const allLabels   = [...new Set(allSets.map(s => s.label))].sort()
@@ -268,11 +270,46 @@ export default function FilterView({
     setFilterState({ stars: [], style: [], label: [], dungeon: [], status: 'all' })
   }
 
+  function handleAzClick() {
+    if (sortMode === 'az') {
+      setAzDir(d => d === 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortMode('az')
+      setAzDir('asc')
+    }
+  }
+
   const filteredSets = allSets.filter(set => matchesSetFilter(set, filterState))
+
+  const showDungeonSort = filteredSets.length > 0 && filteredSets.every(s => s.source?.dungeonId)
+
+  const sortedFilteredSets = (() => {
+    if (sortMode === 'ingame') return filteredSets
+    if (sortMode === 'az') {
+      const sorted = [...filteredSets].sort((a, b) => a.name.localeCompare(b.name))
+      return azDir === 'asc' ? sorted : sorted.reverse()
+    }
+    if (sortMode === 'dungeon') {
+      return [...filteredSets].sort((a, b) => {
+        const idA = a.source?.dungeonId ?? ''
+        const idB = b.source?.dungeonId ?? ''
+        const lastA = idA.lastIndexOf('-')
+        const lastB = idB.lastIndexOf('-')
+        const prefixA = idA.slice(0, lastA)
+        const prefixB = idB.slice(0, lastB)
+        const orderA = DUNGEON_ORDER.indexOf(prefixA)
+        const orderB = DUNGEON_ORDER.indexOf(prefixB)
+        if (orderA !== orderB) return orderA - orderB
+        return parseInt(idA.slice(lastA + 1)) - parseInt(idB.slice(lastB + 1))
+      })
+    }
+    return filteredSets
+  })()
+
   const isItemMode = filterState.status !== 'all'
 
   const colorRows = isItemMode
-    ? filteredSets.flatMap(set =>
+    ? sortedFilteredSets.flatMap(set =>
         set.colors.map(color => ({ set, color }))
       ).filter(({ set, color }) => {
         const missing = colorMissing(set, color, progress)
@@ -293,7 +330,7 @@ export default function FilterView({
     return groups
   }, [])
 
-  const resultCount = isItemMode ? colorRows.length : filteredSets.length
+  const resultCount = isItemMode ? colorRows.length : sortedFilteredSets.length
   const resultLabel = isItemMode
     ? `${resultCount} Color Set${resultCount !== 1 ? 's' : ''}`
     : `${resultCount} Set${resultCount !== 1 ? 's' : ''}`
@@ -318,14 +355,31 @@ export default function FilterView({
             {hasActiveFilter && <span className="fv-filter-btn__dot" />}
           </button>
         </div>
+        {/* ── Sort chips ── */}
+        <div className="fv-sort">
+          <button
+            className={`fv-chip ${sortMode === 'ingame' ? 'fv-chip--active' : ''}`}
+            onClick={() => setSortMode('ingame')}
+          >Ingame</button>
+          <button
+            className={`fv-chip ${sortMode === 'az' ? 'fv-chip--active' : ''}`}
+            onClick={handleAzClick}
+          >A–Z{sortMode === 'az' ? (azDir === 'asc' ? ' ↑' : ' ↓') : ''}</button>
+          {showDungeonSort && (
+            <button
+              className={`fv-chip ${sortMode === 'dungeon' ? 'fv-chip--active' : ''}`}
+              onClick={() => setSortMode('dungeon')}
+            >By Dungeon</button>
+          )}
+        </div>
       </div>
 
       {/* ── Ergebnisse ── */}
       {!isItemMode && (
-        filteredSets.length === 0
+        sortedFilteredSets.length === 0
           ? <p className="fv-empty">No set found.</p>
           : <div className="fv-set-grid">
-              {filteredSets.map(set => (
+              {sortedFilteredSets.map(set => (
                 <SetTileA
                   key={set.id} set={set} progress={progress}
                   onClick={() => navigate(setPath(set))}
